@@ -1,8 +1,6 @@
 # Shine
 
-A starter project with Lumen core and Silex like style.
-
-Include libraries as below:
+A starter project with Lumen core and Silex development style, alse include the libraries:
 
 - Twig
 - Idiorm & Paris
