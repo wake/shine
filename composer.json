@@ -1,7 +1,7 @@
 {
-  "name": "laravel/lumen",
-  "description": "The Laravel Lumen Framework.",
-  "keywords": ["framework", "laravel", "lumen"],
+  "name": "wake/shine",
+  "description": "A starter project with Lumen core and Silex development style.",
+  "keywords": ["framework", "lumen", "silex"],
   "license": "MIT",
   "type": "project",
   "require": {
