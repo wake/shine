@@ -176,10 +176,8 @@
 
   ], function ($router) use ($app) {
 
-    //App\Helper\Floader::inject (compact (["app", "router"]));
-    //App\Helper\Floader::autoload (_ROOT . '/app');
-
-    require __DIR__.'/../app/main.php';
+    App\Helper\Floader::inject (compact (["app", "router"]));
+    App\Helper\Floader::autoload (_ROOT . '/app');
 
   });
 
