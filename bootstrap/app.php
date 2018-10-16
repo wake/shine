@@ -101,9 +101,6 @@
    */
   $app = new Laravel\Lumen\Application (_ROOT);
 
-  // $app->withFacades ();
-  // $app->withEloquent ();
-
 
   /**
    *
@@ -124,6 +121,13 @@
     App\Console\Kernel::class
   );
 
+  // http request object
+  /*
+  $app->singleton ('http', function ($app) {
+    return new GuzzleHttp\Client (['base_uri' => $_ENV['API_BASE_URI']]);
+  });
+  */
+
 
   /**
    *
@@ -134,14 +138,17 @@
    * route or middleware that'll be assigned to some specific routes.
    *
    */
+  $app->middleware ([
+    \Illuminate\Session\Middleware\StartSession::class,
+  ]);
 
-  // $app->middleware ([
-  //   App\Http\Middleware\ExampleMiddleware::class
-  // ]);
+  // User auth middleware
+  /*
+  $app->routeMiddleware ([
+    'auth' => \App\Http\Middleware\Auth::class
+  ]);
+  */
 
-  // $app->routeMiddleware ([
-  //   'auth' => App\Http\Middleware\Authenticate::class,
-  // ]);
 
 
   /**
@@ -154,11 +161,22 @@
    *
    */
   $app->configure ('twigbridge');
-  $app->register ('TwigBridge\ServiceProvider');
+  $app->register (\TwigBridge\ServiceProvider::class);
 
-  // $app->register (App\Providers\AppServiceProvider::class);
-  // $app->register (App\Providers\AuthServiceProvider::class);
-  // $app->register (App\Providers\EventServiceProvider::class);
+  $app->configure ('session');
+  $app->register (\Illuminate\Session\SessionServiceProvider::class);
+
+  $app->configure ('database');
+
+
+  /**
+   *
+   * Bind to application
+   *
+   */
+  $app->bind (\Illuminate\Session\SessionManager::class, function () use ($app) {
+    return $app->make('session');
+  });
 
 
   /**
