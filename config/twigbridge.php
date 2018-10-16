@@ -102,13 +102,13 @@ return [
       'TwigBridge\Extension\Loader\Facades',
       'TwigBridge\Extension\Loader\Filters',
       'TwigBridge\Extension\Loader\Functions',
-
-      //'TwigBridge\Extension\Laravel\Auth',
       'TwigBridge\Extension\Laravel\Config',
       'TwigBridge\Extension\Laravel\Dump',
       'TwigBridge\Extension\Laravel\Input',
-      //'TwigBridge\Extension\Laravel\Session',
       'TwigBridge\Extension\Laravel\Str',
+
+      //'TwigBridge\Extension\Laravel\Auth',
+      //'TwigBridge\Extension\Laravel\Session',
       //'TwigBridge\Extension\Laravel\Translator',
       //'TwigBridge\Extension\Laravel\Url',
       // 'TwigBridge\Extension\Laravel\Gate',
@@ -180,7 +180,11 @@ return [
       'head',
       'last',
       'mix',
-      'route' => ['callback' => 'route']
+      'route' => ['callback' => 'route'],
+
+      /*
+      'sess' => ['callback' => 'sess'],
+      */
     ],
 
     /*
