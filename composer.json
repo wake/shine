@@ -39,7 +39,7 @@
   "scripts": {
     "post-root-package-install": [
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-      "@php -r \"file_exists('public/.htaccess.local') || rename('public/.htaccess.local', 'public/.htaccess');\"",
+      "@php -r \"file_exists('public/.htaccess.local') || rename('public/.htaccess.local', 'public/.htaccess');\""
     ]
   },
   "config": {
