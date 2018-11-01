@@ -150,6 +150,15 @@
   */
 
 
+  /**
+   *
+   * Configurations
+   *
+   */
+  $app->configure ('twigbridge');
+  $app->configure ('session');
+  $app->configure ('database');
+
 
   /**
    *
@@ -160,13 +169,8 @@
    * totally optional, so you are not required to uncomment this line.
    *
    */
-  $app->configure ('twigbridge');
   $app->register (\TwigBridge\ServiceProvider::class);
-
-  $app->configure ('session');
   $app->register (\Illuminate\Session\SessionServiceProvider::class);
-
-  $app->configure ('database');
 
 
   /**
