@@ -87,7 +87,7 @@
    * Load models
    *
    */
-  App\Helper\Floader::autoload (_ROOT . '/database/models');
+  Shadow\Helper\Floader::autoload (_ROOT . '/database/models');
 
 
   /**
@@ -128,6 +128,13 @@
     });
   }
 
+  // SendGrid email service
+  if (env ('SG_ENABLE', false)) {
+    $app->singleton ('mailer', function ($app) {
+      return new Shadow\Email\SendGrid (['key' => env ('SG_API_KEY', '')]);
+    });
+  }
+
 
   /**
    *
@@ -142,23 +149,10 @@
     \Illuminate\Session\Middleware\StartSession::class,
   ]);
 
-  // User auth middleware
-  /*
   $app->routeMiddleware ([
-    'auth' => \App\Http\Middleware\Auth::class
+    'auth' => \App\Http\Middleware\Auth::class,
+    'admin.auth' => \App\Http\Middleware\AdminAuth::class
   ]);
-  */
-
-
-  /**
-   *
-   * Configurations
-   *
-   */
-  $app->configure ('twigbridge');
-  $app->configure ('session');
-  $app->configure ('database');
-
 
   /**
    *
@@ -169,8 +163,19 @@
    * totally optional, so you are not required to uncomment this line.
    *
    */
+
+  // Must be registered before twig config file
+  if (env ('APP_I18N_ENABLE', false)) {
+    $app->register (Shadow\Provider\LocaleProvider::class);
+  }
+
+  $app->configure ('twigbridge');
   $app->register (\TwigBridge\ServiceProvider::class);
+
+  $app->configure ('session');
   $app->register (\Illuminate\Session\SessionServiceProvider::class);
+
+  $app->configure ('database');
 
 
   /**
@@ -179,7 +184,7 @@
    *
    */
   $app->bind (\Illuminate\Session\SessionManager::class, function () use ($app) {
-    return $app->make('session');
+    return $app->make ('session');
   });
 
 
@@ -198,8 +203,9 @@
 
   ], function ($router) use ($app) {
 
-    App\Helper\Floader::inject (compact (["app", "router"]));
-    App\Helper\Floader::autoload (_ROOT . '/app');
+    Shadow\Helper\Floader::once (true);  // require_once => true
+    Shadow\Helper\Floader::inject (compact (["app", "router"]));
+    Shadow\Helper\Floader::autoload (_ROOT . '/app');
 
   });
 

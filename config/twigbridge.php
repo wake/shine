@@ -9,6 +9,9 @@
  * file that was distributed with this source code.
  */
 
+use Shadow\View\Twig\Maintainer as Mtner;
+
+
 /**
  * Configuration options for Twig.
  */
@@ -175,17 +178,15 @@ return [
     | </code>
     |
     */
-    'functions' => [
+    'functions' => Mtner::functions ([
       'elixir',
       'head',
       'last',
       'mix',
       'route' => ['callback' => 'route'],
-
-      /*
       'sess' => ['callback' => 'sess'],
-      */
-    ],
+      '_' => ['callback' => 'trans']
+    ]),
 
     /*
     |--------------------------------------------------------------------------
@@ -215,8 +216,8 @@ return [
     | </code>
     |
     */
-    'filters' => [
+    'filters' => Mtner::filters ([
       'get' => 'data_get',
-    ],
+    ]),
   ],
 ];
