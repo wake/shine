@@ -99,7 +99,7 @@
    * application as an "IoC" container and router for this framework.
    *
    */
-  $app = new Laravel\Lumen\Application (_ROOT);
+  $app = new Shadow\Application (_ROOT);
 
 
   /**
@@ -122,11 +122,11 @@
   );
 
   // http request object
-  /*
-  $app->singleton ('http', function ($app) {
-    return new GuzzleHttp\Client (['base_uri' => $_ENV['API_BASE_URI']]);
-  });
-  */
+  if (env ('API_ENABLE', false)) {
+    $app->singleton ('client', function ($app) {
+      return new GuzzleHttp\Client (['base_uri' => env ('API_BASE_URI', '')]);
+    });
+  }
 
 
   /**

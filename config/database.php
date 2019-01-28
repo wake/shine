@@ -3,9 +3,12 @@
 
   /**
    *
-   * DB config
+   * DB config enable
    *
    */
+  if (! env ('DB_ENABLE', false))
+    return;
+
 
   /**
    *
