@@ -15,6 +15,7 @@
     "robmorgan/phinx": "~0.0",
     "j4mie/idiorm": "~1.0",
     "j4mie/paris": "~1.0",
+    "wake/shadow": "dev-master",
     "wake/pager": "dev-master",
     "wake/php-array-kit": "dev-master"
   },
