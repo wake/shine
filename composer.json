@@ -2,7 +2,6 @@
   "name": "wake/shine",
   "description": "A starter project with Lumen core and Silex development style.",
   "keywords": ["framework", "lumen", "silex"],
-  "version": "v1.0.0",
   "license": "MIT",
   "type": "project",
   "require": {
