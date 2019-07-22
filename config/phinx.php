@@ -26,7 +26,7 @@
      *
      */
     try {
-      (new Dotenv\Dotenv (_ROOT))->load ();
+      Dotenv\Dotenv::create (_ROOT)->load ();
     }
 
     catch (Dotenv\Exception\InvalidPathException $e) {
