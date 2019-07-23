@@ -3,6 +3,14 @@
 
   /**
    *
+   * System defines
+   *
+   */
+  if (! defined ('_ROOT')) :
+
+
+  /**
+   *
    * Root
    *
    */
@@ -33,6 +41,10 @@
   define ('_STORAGE', _ROOT . '/storage');
 
 
+  // System defines end
+  endif;
+
+
   /**
    *
    * Vendors
@@ -54,16 +66,30 @@
     //
   }
 
+  if (! isset ($_SERVER['REQUEST_SCHEME']))
+    $_SERVER['REQUEST_SCHEME'] = isset ($_ENV['APP_HTTP_SCHEME']) ? $_ENV['APP_HTTP_SCHEME'] : 'http';
+
+  if (! isset ($_SERVER['HTTP_HOST']))
+    $_SERVER['HTTP_HOST'] = isset ($_ENV['APP_HTTP_HOST']) ? $_ENV['APP_HTTP_HOST'] : '';
+
+  if (! isset ($_SERVER['QUERY_STRING']))
+    $_SERVER['QUERY_STRING'] = '';
+
+  if (! isset ($_SERVER['REQUEST_URI']))
+    $_SERVER['REQUEST_URI'] = isset ($_ENV['APP_BASE_PATH']) ? $_ENV['APP_BASE_PATH'] : '';
+
 
   /**
    *
-   * Defines
+   * Values defines
    *
    */
-  defined ('_HOST') or define ('_HOST', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']);
-  defined ('_BASE') or define ('_BASE', rtrim (dirname ($_SERVER['SCRIPT_NAME']), '/'));
-  defined ('_HTTP') or define ('_HTTP', _HOST . _BASE);
-  defined ('_URI')  or define ('_URI',  str_replace ('?' . $_SERVER['QUERY_STRING'], '', $_SERVER['REQUEST_URI']));
+  if (! defined ('_HOST')) :
+
+  define ('_HOST', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']);
+  define ('_BASE', rtrim (dirname ($_SERVER['SCRIPT_NAME']), '/'));
+  define ('_HTTP', _HOST . _BASE);
+  define ('_URI',  str_replace ('?' . $_SERVER['QUERY_STRING'], '', $_SERVER['REQUEST_URI']));
 
   define ('_TIMESTAMP',  time ());
   define ('_DATE',       date ('Y-m-d', _TIMESTAMP));
@@ -80,6 +106,9 @@
   define ('_UPLOAD', _ROOT . '/public' . $_ENV['APP_UPLOAD_PATH']);
   define ('_UPLOAD_BASE', ltrim ($_ENV['APP_UPLOAD_PATH'], '/'));
 
+
+  // values defines end
+  endif;
 
 
   /**
@@ -203,7 +232,9 @@
 
   ], function ($router) use ($app) {
 
-    Shadow\Helper\Floader::once (true);  // require_once => true
+    $testingEnv = array_get ($_ENV, 'APP_ENV', '') == 'testing';
+
+    Shadow\Helper\Floader::once (! $testingEnv);  // require_once => true
     Shadow\Helper\Floader::inject (compact (["app", "router"]));
     Shadow\Helper\Floader::autoload (_ROOT . '/app');
 
