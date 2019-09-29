@@ -128,6 +128,7 @@
    * Load models
    *
    */
+  Shadow\Helper\Floader::once ();
   Shadow\Helper\Floader::autoload (_ROOT . '/database/models');
 
 
@@ -244,9 +245,8 @@
 
   ], function ($router) use ($app) {
 
-    $testingEnv = array_get ($_ENV, 'APP_ENV', '') == 'testing';
-
-    Shadow\Helper\Floader::once (! $testingEnv);  // require_once => true
+    // Router files includes extend functions, should be executing whenever files loaded
+    Shadow\Helper\Floader::once (false);
     Shadow\Helper\Floader::inject (compact (["app", "router"]));
     Shadow\Helper\Floader::autoload (_ROOT . '/app');
 
