@@ -26,7 +26,7 @@
 
 define ('_ROOT_',  __DIR__);
 
-if (isset ($_SERVER['argv'][1]) && in_array ($_SERVER['argv'][1], ['status', 'migrate', 'rollback'])) {
+if (isset ($_SERVER['argv'][1]) && in_array ($_SERVER['argv'][1], ['create', 'status', 'migrate', 'rollback', 'seed:run', 'seed:create'])) {
   $_SERVER['argv'][] = '-c';
   $_SERVER['argv'][] = _ROOT_ . '/config/phinx.php';
 }
