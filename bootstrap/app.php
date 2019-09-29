@@ -41,6 +41,14 @@
   define ('_STORAGE', _ROOT . '/storage');
 
 
+  /**
+   *
+   * Testing env
+   *
+   */
+  define ('_ENV_TESTING', array_get ($_ENV, 'APP_ENV', '') == 'testing');
+
+
   // System defines end
   endif;
 
@@ -59,7 +67,11 @@
    *
    */
   try {
+
     Dotenv\Dotenv::create (_ROOT)->load ();
+
+    if (_ENV_TESTING)
+      Dotenv\Dotenv::create (_ROOT, '.env.testing')->overload ();
   }
 
   catch (Dotenv\Exception\InvalidPathException $e) {
