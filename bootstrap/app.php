@@ -46,7 +46,7 @@
    * Testing env
    *
    */
-  define ('_ENV_TESTING', array_get ($_ENV, 'APP_ENV', '') == 'testing');
+  define ('_ENV_TESTING', (isset ($_ENV['APP_ENV']) ? $_ENV['APP_ENV'] : '') == 'testing');
 
 
   // System defines end
@@ -128,7 +128,7 @@
    * Load models
    *
    */
-  Shadow\Helper\Floader::once ();
+  Shadow\Helper\Floader::once (true);
   Shadow\Helper\Floader::autoload (_ROOT . '/database/models');
 
 
