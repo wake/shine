@@ -1,21 +1,28 @@
 <?php
 
-use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
+  use Laravel\Lumen\Testing\DatabaseMigrations;
+  use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class ExampleTest extends TestCase
-{
+
+  /**
+   *
+   * Shine example test
+   *
+   */
+  class ExampleTest extends TestCase {
+
+
     /**
-     * A basic test example.
      *
-     * @return void
+     * Test example
+     *
      */
-    public function testExample()
-    {
-        $this->get('/');
+    public function testExample () {
 
-        $this->assertEquals(
-            $this->app->version(), $this->response->getContent()
-        );
+      $this->get('/');
+
+      $this->assertEquals (
+        $this->app->version(), $this->response->getContent()
+      );
     }
-}
+  }
