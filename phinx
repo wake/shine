@@ -26,10 +26,24 @@
 
 define ('_ROOT_',  __DIR__);
 
-if (isset ($_SERVER['argv'][1]) && in_array ($_SERVER['argv'][1], ['create', 'status', 'migrate', 'rollback', 'seed:run', 'seed:create'])) {
+if (isset ($_SERVER['argv'][1]) && in_array ($_SERVER['argv'][1], [
+  'breakpoint',   // Manage breakpoints
+  'create',       // Create a new migration
+  // 'help',      // Displays help for a command
+  // 'init',      // Initialize the application for Phinx
+  // 'list',      // Lists commands
+  'migrate',      // Migrate the database
+  'rollback',     // Rollback the last or to a specific migration
+  'status',       // Show migration status
+  'test',         // Verify the configuration file
+  'list:aliases', // List template class aliases
+  'seed:create',  // Create a new database seeder
+  'seed:run',     // Run database seeders
+  ])) {
   $_SERVER['argv'][] = '-c';
   $_SERVER['argv'][] = _ROOT_ . '/config/phinx.php';
 }
+
 
 $app = require _ROOT_ . '/vendor/robmorgan/phinx/app/phinx.php';
 $app->run();
